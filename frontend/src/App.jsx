@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import heroImg from './assets/hero.png'
 import './App.css'
 
-const API_BASE = 'http://127.0.0.1:8000'
+const API_BASE = 'https://coffee-shop-65gu.vercel.app'
 
 function App() {
   const [coffees, setCoffees] = useState([])
