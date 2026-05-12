@@ -9,7 +9,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://127.0.0.1:5173",
-        "https://fruit-mocha-psi.vercel.app"
+        "https://coffee-shop-five-kohl.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
