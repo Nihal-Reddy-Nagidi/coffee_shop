@@ -1,9 +1,25 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 
 app = FastAPI()
-#change
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+        "http://127.0.0.1:5175",
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 class Coffee(BaseModel):
     id: int
     name: str
@@ -17,6 +33,13 @@ class CoffeeCreate(BaseModel):
 
 class CoffeeUpdate(BaseModel):
     price: float
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+
+user_data = User(id=1, name="Coffee Lover", email="coffee@example.com")
 
 # In-memory storage for coffee items
 coffee_items: List[Coffee] = [
@@ -61,3 +84,7 @@ def delete_coffee(coffee_id: int):
             del coffee_items[index]
             return
     raise HTTPException(status_code=404, detail="Coffee item not found")
+
+@app.get("/user", response_model=User)
+def read_user():
+    return user_data
